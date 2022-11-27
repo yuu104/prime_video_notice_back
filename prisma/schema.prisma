@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id String @id
+  mail String @unique
+  video Video[]
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  @@map("users")
+}
+
+model Video {
+  id Int @id @default(autoincrement())
+  title String
+  url String @db.Text
+  image String?
+  is_available Boolean
+  user_id String
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  @@map("videos")
+}
+
+model LeavingSoonVideos {
+  id Int @id @default(autoincrement())
+  videos String @db.Text 
+
+  @@map("leaving_soon_videos")
+}
