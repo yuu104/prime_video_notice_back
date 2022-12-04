@@ -10,8 +10,6 @@ export class LeavingSoonVideosService {
   ) {}
 
   async getLeavingSoonVideos(): Promise<LeavingSoonVideos> {
-    // const leavingSoonVideos =
-    //   await this.leavingSoonVideosRepository.getLeavingSoonVideos();
     const leavingSoonVideos =
       await this.leavingSoonVideosRepository.leavingSoonVideos.findMany();
 

@@ -23,13 +23,11 @@ export class PeriodicService {
   @Cron('00 00 20 * * *')
   async notice(): Promise<void> {
     const notUpdatedVideos = await this.videoService.findNotUpdated();
-    console.log(notUpdatedVideos);
 
     const leavingSoonVideos =
       await this.leavingSoonVideosService.getLeavingSoonVideos();
     const leavingSoonVideosItems = leavingSoonVideos.videos.split(',');
     for (let i = 0; i < notUpdatedVideos.length; i++) {
-      await this.videoService.updateUpdatedAt(notUpdatedVideos[i].id);
       if (
         leavingSoonVideosItems.find(
           (item) => item === notUpdatedVideos[i].title,
@@ -41,6 +39,9 @@ export class PeriodicService {
         if (!users.length) return;
         const { mail } = users[0];
         await this.mailService.sendNotify(mail, notUpdatedVideos[i]);
+        await this.videoService.updateIsNotified(notUpdatedVideos[i].id);
+      } else {
+        await this.videoService.updateUpdatedAt(notUpdatedVideos[i].id);
       }
     }
   }
@@ -56,8 +57,13 @@ export class PeriodicService {
     });
 
     if (!leavingSoonVideos) return;
+
+    const nowLeavingSoonVideos =
+      await this.leavingSoonVideosService.getLeavingSoonVideos();
+    const { id } = nowLeavingSoonVideos;
+
     await this.leavingSoonVideosService.updateLeavingSoonVideos(
-      5,
+      id,
       leavingSoonVideos,
     );
   }

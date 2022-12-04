@@ -31,6 +31,10 @@ export class VideoService {
     return this.videoRepository.updateUpdatedAt(id);
   }
 
+  updateIsNotified(id: number): Promise<number> {
+    return this.videoRepository.updateIsNotified(id);
+  }
+
   deleteVideoById(user_id: string, videoId: number): Promise<number> {
     return this.videoRepository.deleteVideoById(user_id, videoId);
   }

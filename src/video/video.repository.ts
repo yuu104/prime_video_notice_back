@@ -32,7 +32,7 @@ export class VideoRepository extends PrismaService {
   async findNotUpdated(): Promise<Video[]> {
     const videos = await this.$queryRaw<
       Video[]
-    >`SELECT * FROM videos WHERE updated_at < DATE_SUB(NOW(),INTERVAL 24 HOUR)`;
+    >`SELECT * FROM videos WHERE updated_at < DATE_SUB(NOW(),INTERVAL 24 HOUR) AND is_notified=false`;
 
     return videos;
   }
@@ -48,6 +48,13 @@ export class VideoRepository extends PrismaService {
   async updateUpdatedAt(id: number): Promise<number> {
     const result = await this
       .$executeRaw`UPDATE videos SET updated_at=${new Date()} WHERE id=${id}`;
+
+    return result;
+  }
+
+  async updateIsNotified(id: number): Promise<number> {
+    const result = await this
+      .$executeRaw`UPDATE videos SET updated_at=${new Date()}, is_notified=true WHERE id=${id}`;
 
     return result;
   }
