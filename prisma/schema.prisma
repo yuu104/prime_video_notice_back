@@ -26,6 +26,7 @@ model Video {
   url String @db.Text
   image String?
   is_available Boolean
+  is_notified Boolean @default(false)
   user_id String
   user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
   created_at DateTime @default(now())
