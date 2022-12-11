@@ -1,4 +1,5 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { LeavingSoonVideosDto } from './dto/leavingSoonVideos.dto';
 import { LeavingSoonVideosService } from './leaving-soon-videos.service';
 
 @Controller('leaving_soon_videos')
@@ -16,5 +17,14 @@ export class LeavingSoonVideosController {
     } else {
       return false;
     }
+  }
+
+  @Post('')
+  addLeavingSoonVideo(
+    @Body() leavingSoonVideoDto: LeavingSoonVideosDto,
+  ): Promise<number> {
+    return this.leavingSoonVideosService.addLeavingSoonVideos(
+      leavingSoonVideoDto,
+    );
   }
 }
