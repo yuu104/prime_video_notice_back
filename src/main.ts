@@ -17,7 +17,7 @@ async function bootstrap() {
       'Origin, X-Requested-With, Content-Type, Accept, Authorization',
   });
 
-  const port = Number(process.env.PORT) || 3000;
+  const port = Number(process.env.PORT) || 3011;
   await app.listen(port, '0.0.0.0');
 }
 bootstrap();
