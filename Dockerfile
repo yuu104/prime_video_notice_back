@@ -11,7 +11,7 @@ RUN yarn run prisma generate
 COPY . .
 RUN yarn build
 
-FROM node:16-stretch-slim AS runner
+FROM node:16-alpine3.16 AS runner
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 WORKDIR /app
