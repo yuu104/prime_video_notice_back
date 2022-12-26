@@ -20,7 +20,7 @@ export class PeriodicService {
     private readonly leavingSoonVideosService: LeavingSoonVideosService,
   ) {}
 
-  @Cron('00 00 20 * * *')
+  @Cron('00 30 20 * * *')
   async notice(): Promise<void> {
     const notUpdatedVideos = await this.videoService.findNotUpdated();
 
@@ -46,7 +46,7 @@ export class PeriodicService {
     }
   }
 
-  @Cron('0 0 */12 * * *')
+  @Cron('0 0 17 * * *', { timeZone: 'Asia/Tokyo' })
   async updateLeavingSoonVideos(): Promise<void> {
     const requestUrl = this.config.get('GET_LEAVING_SOON_VIDEOS_API');
 
