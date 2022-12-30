@@ -46,8 +46,9 @@ export class PeriodicService {
     }
   }
 
-  @Cron('0 0 18 * * *', { timeZone: 'Asia/Tokyo' })
+  @Cron('0 0 19 * * *', { timeZone: 'Asia/Tokyo' })
   async updateLeavingSoonVideos(): Promise<void> {
+    console.log('periodic');
     const requestUrl = this.config.get('GET_LEAVING_SOON_VIDEOS_API');
 
     const leavingSoonVideos: LeavingSoonVideosDto | null = await lastValueFrom(

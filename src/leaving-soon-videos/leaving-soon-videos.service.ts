@@ -28,6 +28,7 @@ export class LeavingSoonVideosService {
     id: number,
     leavingSoonVideosDto: LeavingSoonVideosDto,
   ): Promise<number> {
+    console.log('updateLeavingSoonVideos');
     return this.leavingSoonVideosRepository.updateLeavingSoonVideos(
       id,
       leavingSoonVideosDto,
