@@ -39,6 +39,8 @@ model Video {
 model LeavingSoonVideos {
   id Int @id @default(autoincrement())
   videos String @db.Text 
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
 
   @@map("leaving_soon_videos")
 }

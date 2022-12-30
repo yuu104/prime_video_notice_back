@@ -29,7 +29,7 @@ export class LeavingSoonVideosRepository extends PrismaService {
     const { videos } = leavingSoonVideosDto;
     const videosString = videos.toString();
     const result = await this
-      .$executeRaw`UPDATE leaving_soon_videos SET videos=${videosString} WHERE id=${id}`;
+      .$executeRaw`UPDATE leaving_soon_videos SET videos=${videosString}, updated_at=${new Date()} WHERE id=${id}`;
 
     return result;
   }
