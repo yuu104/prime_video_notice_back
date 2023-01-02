@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { LeavingSoonVideosDto } from './dto/leavingSoonVideos.dto';
 import { LeavingSoonVideosService } from './leaving-soon-videos.service';
 
@@ -8,15 +8,12 @@ export class LeavingSoonVideosController {
     private readonly leavingSoonVideosService: LeavingSoonVideosService,
   ) {}
 
-  @Get(':title')
-  async isLeavingSoon(@Param('title') title: string): Promise<boolean> {
+  @Get()
+  async getLeavingSoonVideos(): Promise<string[]> {
     const videos = await this.leavingSoonVideosService.getLeavingSoonVideos();
     const videosItems = videos.videos.split(',');
-    if (videosItems.find((item) => item === title)) {
-      return true;
-    } else {
-      return false;
-    }
+
+    return videosItems;
   }
 
   @Post('')
